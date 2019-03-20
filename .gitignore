@@ -5,6 +5,12 @@
 [Bb]uilds/
 Assets/AssetStoreTools*
 
+# Comment the line below if you don't want to ignore the asset store tools plugin.
+Assets/AssetStoreTools*
+
+# Never ignore Assets meta data.
+![Aa]ssets/**/*.meta
+
 # Visual Studio cache directory
 .vs/
 
