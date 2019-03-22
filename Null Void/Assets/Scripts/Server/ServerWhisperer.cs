@@ -5,12 +5,26 @@ using UnityEngine;
 
 public class ServerWhisperer : MonoBehaviour
 {
+    public static ServerWhisperer instance;
     public SignalRController signalRController;    
 
     // Variables to hold a referennce to each player's respawn script.
     //PlayerRespawn player1Respawn, player2Respawn;
 
     bool matchInProgress;
+
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     void Start()
     {

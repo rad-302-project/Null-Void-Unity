@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class SignalRController : MonoBehaviour
 {
+    public static SignalRController instance;
     public ServerWhisperer sWhisperer;
     public string p1Username, p2Username;
     public int p1StockCount, p2StockCount;
@@ -19,10 +20,23 @@ public class SignalRController : MonoBehaviour
     IHubProxy proxy;
     bool connected;
 
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     void OnApplicationQuit()
     {
         if (connected) connection.Stop();
-    }
+    }  
 
     void Start()
     {
