@@ -53,7 +53,7 @@ public class SignalRController : MonoBehaviour
 
             // Add actions to the proxy.
             proxy.On("ReceiveResults", new Action<ApplicationUser, ApplicationUser>(serverListener.OnReceiveResults));
-            proxy.On("ReceiveEmailError", new Action<string>(serverListener.OnReceiveEmailError));
+            proxy.On("ReceiveRegistrationMessage", new Action<string, string>(serverListener.OnReceiveRegistrationMessage));
             //proxy.On("PlayerJoined", new Action<string>(serverTalk.OnPlayerJoined));
             //proxy.On("PlayerLeft", new Action<string>(serverTalk.OnPlayerLeft));
 
@@ -68,7 +68,8 @@ public class SignalRController : MonoBehaviour
 
     public void RegisterPlayer(string emailIn, string usernameIn, string pwordIn)
     {
-        proxy.Invoke("RegisterNewPlayer", emailIn, usernameIn, pwordIn);
+        if (connected) proxy.Invoke("RegisterNewPlayer", emailIn, usernameIn, pwordIn);
+        else print("No connection to the server could be established!");
     }
 
     public void UploadMatchResults()

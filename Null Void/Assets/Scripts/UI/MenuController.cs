@@ -11,6 +11,7 @@ public class MenuController : MonoBehaviour
     public Text txtEmail, txtUsernameR, txtPasswordR, txtUsernameL, txtPasswordL;
 
     SignalRController signalRController;
+    AudioManager audioManager;
 
     void Awake()
     {
@@ -29,6 +30,7 @@ public class MenuController : MonoBehaviour
     {              
         PlaySound("Menu BGM"); // Play the main menu BGM.
         signalRController = GameObject.Find("SignalRController").GetComponent<SignalRController>();
+        audioManager = GameObject.Find("Controller_Audio").GetComponent<AudioManager>();
     }
 
     public void SendRegisterInfo()
@@ -55,12 +57,12 @@ public class MenuController : MonoBehaviour
    
     public void PlaySound(string soundName)
     {
-        FindObjectOfType<AudioManager>().Play(soundName);
+        if(audioManager != null) audioManager.Play(soundName);
     }
 
     public void StopSound(string soundName)
     {
-        FindObjectOfType<AudioManager>().Stop(soundName);
+        if(audioManager != null) audioManager.Stop(soundName);
     }
 
     public void OpenQuitDialog() // Gotta make this into a generic method that is called when you click any button.

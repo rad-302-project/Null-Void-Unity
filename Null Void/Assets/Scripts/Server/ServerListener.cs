@@ -68,8 +68,21 @@ public class ServerListener : MonoBehaviour // This script is solely responsible
         print("Runner-up: " + loser.UserName + " Total Wins: " + loser.Wins + " Total Losses: " + loser.Losses);
     }
 
-    public void OnReceiveEmailError(string invalidEmail)
+    public void OnReceiveRegistrationMessage(string status, string input)
     {
-        print(invalidEmail + "already has a NULL VOID account attached to it!"); // This should be replaced by in-game text.
+        if (status.ToUpper() == "EMAIL TAKEN")
+        {
+            print(input + " already has a NULL VOID account attached to it!"); // This should be replaced by in-game text.
+        }
+
+        else if (status.ToUpper() == "USERNAME TAKEN")
+        {
+            print("The username " + "'"+input+"'" + " has already been taken."); // This should also be replaced.
+        }
+
+        else if (status.ToUpper() == "SUCCESS")
+        {
+            print("Welcome to NULL VOID, " + input + "! Please log in so you can play the game!");
+        }
     }
 }
