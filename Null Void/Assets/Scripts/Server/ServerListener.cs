@@ -3,15 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ServerWhisperer : MonoBehaviour
+public class ServerListener : MonoBehaviour // This script is solely responsible for obtaining information from the server.
 {
-    public static ServerWhisperer instance;
-    public SignalRController signalRController;    
+    public static ServerListener instance;
+    public bool LoggedIn;
 
-    // Variables to hold a referennce to each player's respawn script.
-    //PlayerRespawn player1Respawn, player2Respawn;
-
-    bool matchInProgress;
+    SignalRController signalRController;    
 
     void Awake()
     {
@@ -27,19 +24,9 @@ public class ServerWhisperer : MonoBehaviour
     }
 
     void Start()
-    {
-        // Find both players in the scene so that we can keep track of them.
-        //player1 = GameObject.Find("Player 1").GetComponent<PlayerRespawn>();
-        //player2 = GameObject.Find("Player 2").GetComponent<PlayerRespawn>();
-
+    {       
         // Find the signalR controller.
-        signalRController = GameObject.Find("SignalRController").GetComponent<SignalRController>();
-
-        // Get each player's respawn scripts.
-        //player1Respawn = player1.PlayerPrefab.GetComponent<PlayerRespawn>();
-        //player2Respawn = player2.NetworkPlayerPrefab.GetComponent<PlayerRespawn>();
-
-        matchInProgress = true;
+        signalRController = GameObject.Find("SignalRController").GetComponent<SignalRController>();               
     }
 
     void Update()
@@ -48,12 +35,12 @@ public class ServerWhisperer : MonoBehaviour
         //{
         //    EndMatch();
         //}
-    }
+    }   
 
     void EndMatch()
     {
         // End the match.
-        matchInProgress = false;
+        //matchInProgress = false;
 
         // We should load a results screen scene here.       
 

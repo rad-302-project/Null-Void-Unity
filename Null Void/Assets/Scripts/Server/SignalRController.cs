@@ -9,9 +9,8 @@ using UnityEngine.UI;
 public class SignalRController : MonoBehaviour
 {
     public static SignalRController instance;
-    public ServerWhisperer sWhisperer;
-    public string p1Username, p2Username;
-    public int p1StockCount, p2StockCount;
+
+    ServerListener serverListener;
 
     // Connection properties.    
     static string endpoint = "http://localhost:55476/";
@@ -40,8 +39,8 @@ public class SignalRController : MonoBehaviour
 
     void Start()
     {
-        DontDestroyOnLoad(this);
-
+        DontDestroyOnLoad(this);       
+        serverListener = GameObject.Find("ServerListener").GetComponent<ServerListener>();
         ConnectToHub();
     }
 
@@ -53,7 +52,7 @@ public class SignalRController : MonoBehaviour
             proxy = connection.CreateHubProxy(hubName);
 
             // Add actions to the proxy.
-            proxy.On("ReceiveResults", new Action<ApplicationUser, ApplicationUser>(sWhisperer.OnReceiveResults));
+            proxy.On("ReceiveResults", new Action<ApplicationUser, ApplicationUser>(serverListener.OnReceiveResults));
             //proxy.On("PlayerJoined", new Action<string>(serverTalk.OnPlayerJoined));
             //proxy.On("PlayerLeft", new Action<string>(serverTalk.OnPlayerLeft));
 
@@ -66,11 +65,16 @@ public class SignalRController : MonoBehaviour
         }
     }
 
+    public void RegisterPlayer(string emailIn, string usernameIn, string pwordIn)
+    {
+        proxy.Invoke("RegisterNewPlayer", emailIn, usernameIn, pwordIn);
+    }
+
     public void UploadMatchResults()
     {
         if (connected)
         {
-            proxy.Invoke("UploadMatchResults", p1Username, p2Username, p1StockCount, p2StockCount);
+            //proxy.Invoke("UploadMatchResults", p1Username, p2Username, p1StockCount, p2StockCount);
         }
     }
 

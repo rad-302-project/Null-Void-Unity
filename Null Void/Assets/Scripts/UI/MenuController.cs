@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
     public static MenuController instance;
+    public Text txtEmail, txtUsernameR, txtPasswordR, txtUsernameL, txtPasswordL;
+
+    SignalRController signalRController;
 
     void Awake()
     {
@@ -18,17 +22,21 @@ public class MenuController : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-        }
+        }        
     }
 
     void Start()
-    {
+    {              
         PlaySound("Menu BGM"); // Play the main menu BGM.
+        signalRController = GameObject.Find("SignalRController").GetComponent<SignalRController>();
     }
 
-    public void OpenQuitDialog() // Gotta make this into a generic method that is called when you click any button.
+    public void SendRegisterInfo()
     {
-        PlaySound("Confirm");
+        if(txtEmail != null && txtUsernameR != null && txtPasswordR != null)
+        {
+            signalRController.RegisterPlayer(txtEmail.text, txtUsernameR.text, txtPasswordR.text);
+        }
     }
 
     public void StartGame()
@@ -44,7 +52,7 @@ public class MenuController : MonoBehaviour
         PlaySound("Confirm");
         Application.Quit(); // Close the game.       
     }
-
+   
     public void PlaySound(string soundName)
     {
         FindObjectOfType<AudioManager>().Play(soundName);
@@ -53,5 +61,10 @@ public class MenuController : MonoBehaviour
     public void StopSound(string soundName)
     {
         FindObjectOfType<AudioManager>().Stop(soundName);
+    }
+
+    public void OpenQuitDialog() // Gotta make this into a generic method that is called when you click any button.
+    {
+        PlaySound("Confirm");
     }
 }
