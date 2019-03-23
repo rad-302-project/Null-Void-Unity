@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3814,6 +3814,129 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1083927185}
+--- !u!1 &1102609543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1102609545}
+  - component: {fileID: 1102609544}
+  m_Layer: 0
+  m_Name: Controller_Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1102609544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1102609543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3c3eca7254e34946bb8a9a308fa505b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 0}
+  sounds:
+  - name: Menu BGM
+    clip: {fileID: 8300000, guid: 32dfa086a6bb48c4988670a2a6759d58, type: 3}
+    volume: 0.492
+    volumeVariance: 0.488
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Gameplay BGM
+    clip: {fileID: 8300000, guid: 3560ea2d41d459c40a7ed2788273501b, type: 3}
+    volume: 0.492
+    volumeVariance: 0.488
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Confirm SFX
+    clip: {fileID: 8300000, guid: a9cd3018da6ccad418daeb458cd5d449, type: 3}
+    volume: 0.492
+    volumeVariance: 0.488
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Decline SFX
+    clip: {fileID: 8300000, guid: 4c6a6c734a1041c4fba6bc5aa48eff46, type: 3}
+    volume: 0.492
+    volumeVariance: 0.488
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Shoot SFX
+    clip: {fileID: 8300000, guid: 07deb900a328b204e97e698143c4805c, type: 3}
+    volume: 0.492
+    volumeVariance: 0.488
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Hit SFX
+    clip: {fileID: 8300000, guid: 434060a09567bee4dab61bc6f62fbbc6, type: 3}
+    volume: 0.492
+    volumeVariance: 0.488
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Heal SFX
+    clip: {fileID: 8300000, guid: 8befae1ef5f44d8429612735202ea57a, type: 3}
+    volume: 0.492
+    volumeVariance: 0.488
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Damage SFX
+    clip: {fileID: 8300000, guid: a046505cdf888524e90531e626c767f3, type: 3}
+    volume: 0.492
+    volumeVariance: 0.488
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Death SFX
+    clip: {fileID: 8300000, guid: 97bb61aa1ac746942849a0b9998400e1, type: 3}
+    volume: 0.492
+    volumeVariance: 0.488
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+--- !u!4 &1102609545
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1102609543}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 443.36526, y: 268.65207, z: 281.9101}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1151148669
 GameObject:
   m_ObjectHideFlags: 0
@@ -6814,102 +6937,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2124603594}
---- !u!1 &2133214879
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 2133214881}
-  - component: {fileID: 2133214880}
-  m_Layer: 0
-  m_Name: Controller_Audio
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2133214880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2133214879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3c3eca7254e34946bb8a9a308fa505b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mixerGroup: {fileID: 0}
-  sounds:
-  - name: Confirm
-    clip: {fileID: 8300000, guid: 88adcf9c96c96dc4f88ffe9d1313a61e, type: 3}
-    volume: 0
-    volumeVariance: 0
-    pitch: 0
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Decline
-    clip: {fileID: 8300000, guid: ee18444466043ae47b7cc78148df61b0, type: 3}
-    volume: 0
-    volumeVariance: 0
-    pitch: 0
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Heal
-    clip: {fileID: 8300000, guid: 8befae1ef5f44d8429612735202ea57a, type: 3}
-    volume: 0
-    volumeVariance: 0
-    pitch: 0
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Damage
-    clip: {fileID: 8300000, guid: a046505cdf888524e90531e626c767f3, type: 3}
-    volume: 0
-    volumeVariance: 0
-    pitch: 0
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Menu BGM
-    clip: {fileID: 8300000, guid: 32dfa086a6bb48c4988670a2a6759d58, type: 3}
-    volume: 0
-    volumeVariance: 0
-    pitch: 0
-    pitchVariance: 0
-    loop: 1
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Gameplay BGM
-    clip: {fileID: 8300000, guid: 3560ea2d41d459c40a7ed2788273501b, type: 3}
-    volume: 0
-    volumeVariance: 0
-    pitch: 0
-    pitchVariance: 0
-    loop: 1
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
---- !u!4 &2133214881
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2133214879}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 481, y: 270.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2139519217
 GameObject:
   m_ObjectHideFlags: 0
