@@ -67,4 +67,9 @@ public class ServerListener : MonoBehaviour // This script is solely responsible
         print("Winner: " + winner.UserName + " Total Wins: " + winner.Wins + " Total Losses: " + winner.Losses);
         print("Runner-up: " + loser.UserName + " Total Wins: " + loser.Wins + " Total Losses: " + loser.Losses);
     }
+
+    public void OnReceiveEmailError(string invalidEmail)
+    {
+        print(invalidEmail + "already has a NULL VOID account attached to it!"); // This should be replaced by in-game text.
+    }
 }

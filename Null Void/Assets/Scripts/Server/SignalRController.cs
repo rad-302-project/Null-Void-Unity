@@ -53,6 +53,7 @@ public class SignalRController : MonoBehaviour
 
             // Add actions to the proxy.
             proxy.On("ReceiveResults", new Action<ApplicationUser, ApplicationUser>(serverListener.OnReceiveResults));
+            proxy.On("ReceiveEmailError", new Action<string>(serverListener.OnReceiveEmailError));
             //proxy.On("PlayerJoined", new Action<string>(serverTalk.OnPlayerJoined));
             //proxy.On("PlayerLeft", new Action<string>(serverTalk.OnPlayerLeft));
 
