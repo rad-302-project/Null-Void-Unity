@@ -13,17 +13,30 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D playerBody;
     //Animator animator;
 
+    Transform firePosition;
+
+    //Bullets
+    public GameObject bullet;
+
     void Start()
     {
         playerBody = GetComponent<Rigidbody2D>();
         playerPosition = GetComponent<Transform>();
         //animator = GetComponent<Animator>();
+
+        //gets the reference of the transform 
+       // firePosition = transform.Find("firePosition");
     }
 
     void Update()
     {
         HandleMovement();
         HandleAnimations();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Fire();
+        }
     }
 
     void HandleMovement()
@@ -50,5 +63,10 @@ public class PlayerController : MonoBehaviour
     void HandleAnimations()
     {
         //animator.SetBool("Moving", moving); May or may not see use for this project. 
+    }
+
+    void Fire()
+    {
+        Instantiate(bullet);
     }
 }
