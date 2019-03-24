@@ -75,19 +75,17 @@ public class ServerListener : MonoBehaviour // This script is solely responsible
     {
         if (status.ToUpper() == "EMAIL TAKEN")
         {
-            uiController.UpdateRegFeedback(input + " already has a NULL VOID account attached to it!");                      
+            uiController.UpdateServerFeedback(input + " already has a NULL VOID account attached to it!");                      
         }
 
         else if (status.ToUpper() == "USERNAME TAKEN")
         {
-            //uiController.UpdateRegFeedback();
-            //print("The username " + "'"+input+"'" + " has already been taken."); // This should also be replaced.
+            uiController.UpdateServerFeedback("The username " + "'" + input + "'" + " has already been taken.");           
         }
 
         else if (status.ToUpper() == "SUCCESS")
         {
-            //uiController.UpdateRegFeedback();
-            //print("Welcome to NULL VOID, " + input + "! Please log in so you can play the game!");
+            uiController.UpdateServerFeedback("Welcome to NULL VOID, " + input + "! Please log in so you can play the game!");           
         }
     }
 
@@ -95,17 +93,20 @@ public class ServerListener : MonoBehaviour // This script is solely responsible
     {
         if (status.ToUpper() == "NOT FOUND")
         {
+            uiController.UpdateServerFeedback("No player named " + "'" + username + "'" + " found!");
             print("No player named " + "'" + username + "'" + " found!");
         }
 
         else if (status.ToUpper() == "PASSWORD INVALID")
         {
-            print("Invalid password.");
+            uiController.UpdateServerFeedback("Invalid password.");
+            //print("Invalid password.");
         }
 
         else if (status.ToUpper() == "PASSWORD VALID")
         {
-            print("Welcome back, " + username + "!"); 
+            uiController.UpdateServerFeedback("Welcome back, " + username + "!");
+            //print("Welcome back, " + username + "!"); 
             // Give user info to the SignalR controller. 
         }       
     }

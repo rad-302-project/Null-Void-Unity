@@ -46,6 +46,10 @@ public class UiController : MonoBehaviour
         {
             RegistrationFeedback.text = serverMessage;
             ReturnFromRegistration.gameObject.SetActive(true); // I'll keep an eye on this.
+
+            LoginFeedback.text = serverMessage;
+            ReturnFromLogin.gameObject.SetActive(true);
+
             feedbackUpdated = false;
         }
     }
@@ -53,31 +57,43 @@ public class UiController : MonoBehaviour
     #region Registration methods and coroutines.
     public void CheckRegisterInfo()
     {
-        if(txtEmail != null && txtUsernameR != null && txtPasswordR != null)
+        if(txtEmail.text != "" && txtUsernameR.text != "" && txtPasswordR.text != "")
         {
             StartCoroutine("SendRegisterInfo");
         }
+
+        else UpdateServerFeedback("Login failed: Please enter a valid email address, username and password.");
     }
 
     public IEnumerator SendRegisterInfo()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
         signalRController.RegisterPlayer(txtEmail.text, txtUsernameR.text, txtPasswordR.text);
-    }
-
-    public void UpdateRegFeedback(string serverFeedback)
-    {
-        serverMessage = serverFeedback;
-        feedbackUpdated = true;
     }
     #endregion
 
-    public void SendLoginInfo()
+    #region Login methods and coroutines.
+    public void CheckLoginInfo()
     {
-        if (txtUsernameL != null && txtPasswordL != null)
+        if (txtUsernameL.text != "" && txtPasswordL.text != "")
         {
-            signalRController.LoginPlayer(txtUsernameL.text, txtPasswordL.text);
+            StartCoroutine("SendLoginInfo");
         }
+
+        else UpdateServerFeedback("Login failed: Please enter a username and password.");
+    }
+
+    public IEnumerator SendLoginInfo()
+    {
+        yield return new WaitForSeconds(1.5f);
+        signalRController.LoginPlayer(txtUsernameL.text, txtPasswordL.text);
+    }
+    #endregion
+
+    public void UpdateServerFeedback(string serverFeedback)
+    {
+        serverMessage = serverFeedback;
+        feedbackUpdated = true;
     }
 
     public void StartGame()
@@ -95,9 +111,10 @@ public class UiController : MonoBehaviour
     public void RevertFeedback()
     {
         if (RegistrationFeedback.text != "Registering...") RegistrationFeedback.text = "Registering...";
-        //if (LoginFeedback.text != "Logging in...") LoginFeedback.text = "Logging in...";
+        if (LoginFeedback.text != "Logging in...") LoginFeedback.text = "Logging in...";
 
         ReturnFromRegistration.gameObject.SetActive(false);
+        ReturnFromLogin.gameObject.SetActive(false);
     }
    
     public void PlaySound(string soundName) // I should probably move these next two methods to the AudioManager class.
