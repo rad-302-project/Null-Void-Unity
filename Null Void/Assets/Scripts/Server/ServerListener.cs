@@ -85,4 +85,23 @@ public class ServerListener : MonoBehaviour // This script is solely responsible
             print("Welcome to NULL VOID, " + input + "! Please log in so you can play the game!");
         }
     }
+
+    public void OnReceiveLoginMessage(string status, string username, int wins, int losses)
+    {
+        if (status.ToUpper() == "NOT FOUND")
+        {
+            print("No player named " + "'" + username + "'" + " found!");
+        }
+
+        else if (status.ToUpper() == "PASSWORD INVALID")
+        {
+            print("Invalid password.");
+        }
+
+        else if (status.ToUpper() == "PASSWORD VALID")
+        {
+            print("Welcome back, " + username + "!"); 
+            // Give user info to the SignalR controller. 
+        }       
+    }
 }
