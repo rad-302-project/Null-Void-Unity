@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour {
+public class BulletController : PlayerController {
 
     public Vector2 speed;
-    Rigidbody2D rb;
+    Rigidbody rb;
 	// Use this for initialization
 	void Start ()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.velocity = speed;
+        rb = GetComponent<Rigidbody>();
+        
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        rb.velocity = speed; 
+        rb.velocity = this.transform.TransformDirection(Vector3.right * speed);
+
     }
 }
