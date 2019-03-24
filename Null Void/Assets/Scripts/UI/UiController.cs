@@ -5,13 +5,13 @@ using UnityEngine.Experimental.UIElements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuController : MonoBehaviour
+public class UiController : MonoBehaviour
 {
-    public static MenuController instance;
+    public static UiController instance;
     public Text txtEmail, txtUsernameR, txtPasswordR, txtUsernameL, txtPasswordL;
 
     SignalRController signalRController;
-    AudioManager audioManager;
+    public AudioManager audioManager;
 
     void Awake()
     {
@@ -27,10 +27,10 @@ public class MenuController : MonoBehaviour
     }
 
     void Start()
-    {              
-        PlaySound("Menu BGM"); // Play the main menu BGM.
+    {
         signalRController = GameObject.Find("SignalRController").GetComponent<SignalRController>();
         audioManager = GameObject.Find("Controller_Audio").GetComponent<AudioManager>();
+        PlaySound("Menu BGM"); // Play the main menu BGM.       
     }
 
     public void SendRegisterInfo()
@@ -38,6 +38,14 @@ public class MenuController : MonoBehaviour
         if(txtEmail != null && txtUsernameR != null && txtPasswordR != null)
         {
             signalRController.RegisterPlayer(txtEmail.text, txtUsernameR.text, txtPasswordR.text);
+        }
+    }
+
+    public void SendLoginInfo()
+    {
+        if (txtUsernameL != null && txtPasswordL != null)
+        {
+            signalRController.LoginPlayer(txtUsernameL.text, txtPasswordL.text);
         }
     }
 

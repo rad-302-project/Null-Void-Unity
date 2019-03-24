@@ -54,6 +54,7 @@ public class SignalRController : MonoBehaviour
             // Add actions to the proxy.
             proxy.On("ReceiveResults", new Action<ApplicationUser, ApplicationUser>(serverListener.OnReceiveResults));
             proxy.On("ReceiveRegistrationMessage", new Action<string, string>(serverListener.OnReceiveRegistrationMessage));
+            proxy.On("ReceiveLoginMessage", new Action<string, string, int, int>(serverListener.OnReceiveLoginMessage));
             //proxy.On("PlayerJoined", new Action<string>(serverTalk.OnPlayerJoined));
             //proxy.On("PlayerLeft", new Action<string>(serverTalk.OnPlayerLeft));
 
@@ -69,6 +70,12 @@ public class SignalRController : MonoBehaviour
     public void RegisterPlayer(string emailIn, string usernameIn, string pwordIn)
     {
         if (connected) proxy.Invoke("RegisterNewPlayer", emailIn, usernameIn, pwordIn);
+        else print("No connection to the server could be established!");
+    }
+
+    public void LoginPlayer(string usernameIn, string pwordIn)
+    {
+        if (connected) proxy.Invoke("PlayerLogin", usernameIn, pwordIn);
         else print("No connection to the server could be established!");
     }
 
