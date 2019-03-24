@@ -8,35 +8,35 @@ public class PlayerController : MonoBehaviour
 {
     public int moveSpeed, rotateSpeed;
     public Text overallScoreDisplay;
-    public Transform respawnLocation, playerPosition;
-
+    public Transform respawnLocation, playerPosition, firePosition;
+    public int Ammo = 5;
+    bool canShoot = true;
+    int numOfShots;
     Rigidbody2D playerBody;
+    public float delayInSeconds;
     //Animator animator;
-
-    Transform firePosition;
-
     //Bullets
     public GameObject bullet;
 
     void Start()
     {
+        // the rigidboody component of the player
         playerBody = GetComponent<Rigidbody2D>();
+
+        // the transform of the player
         playerPosition = GetComponent<Transform>();
+       
         //animator = GetComponent<Animator>();
 
-        //gets the reference of the transform 
-       // firePosition = transform.Find("firePosition");
+       
     }
 
     void Update()
     {
         HandleMovement();
         HandleAnimations();
+        Fire();
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Fire();
-        }
     }
 
     void HandleMovement()
@@ -67,6 +67,22 @@ public class PlayerController : MonoBehaviour
 
     void Fire()
     {
-        Instantiate(bullet);
+        // if the mouse button is pressed
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (canShoot)
+            {
+                Instantiate(bullet, firePosition.position, firePosition.rotation);
+            }
+            canShoot = false;
+            StartCoroutine(ShootDelay());
+        }
+        
+        
+    }
+    IEnumerator ShootDelay()
+    {
+        yield return new WaitForSeconds(delayInSeconds);
+        canShoot = true;
     }
 }
