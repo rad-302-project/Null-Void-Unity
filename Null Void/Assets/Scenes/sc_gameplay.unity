@@ -767,6 +767,11 @@ GameObject:
   - component: {fileID: 869893361}
   - component: {fileID: 869893365}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  - component: {fileID: 869893366}
+  - component: {fileID: 869893367}
+>>>>>>> parent of 4a0ba25... Update sc_gameplay.unity
 =======
   - component: {fileID: 869893366}
   - component: {fileID: 869893367}
@@ -851,6 +856,9 @@ RectTransform:
 =======
   - {fileID: 1817403954}
   - {fileID: 1474213453}
+<<<<<<< HEAD
+>>>>>>> parent of 4a0ba25... Update sc_gameplay.unity
+=======
 >>>>>>> parent of 4a0ba25... Update sc_gameplay.unity
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -870,7 +878,10 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32eb40c2499bfb9449142563cb928283, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 4a0ba25... Update sc_gameplay.unity
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 869893363}
@@ -1203,8 +1214,11 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 434060a09567bee4dab61bc6f62fbbc6, type: 3}
   shotSound: {fileID: 8300000, guid: 07deb900a328b204e97e698143c4805c, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
   Ammo: 5
   delayInSeconds: 0
+=======
+>>>>>>> parent of 4a0ba25... Update sc_gameplay.unity
 =======
 >>>>>>> parent of 4a0ba25... Update sc_gameplay.unity
   startHealth: 100
