@@ -11,6 +11,7 @@ public class SignalRController : MonoBehaviour
     public static SignalRController instance;
 
     ServerListener serverListener;
+    UiController uiController;
 
     // Connection properties.    
     static string endpoint = "http://localhost:55476/";
@@ -41,6 +42,7 @@ public class SignalRController : MonoBehaviour
     {
         DontDestroyOnLoad(this);       
         serverListener = GameObject.Find("ServerListener").GetComponent<ServerListener>();
+        uiController = GameObject.Find("Controller_Menu").GetComponent<UiController>();
         ConnectToHub();
     }
 
@@ -69,14 +71,14 @@ public class SignalRController : MonoBehaviour
 
     public void RegisterPlayer(string emailIn, string usernameIn, string pwordIn)
     {
-        if (connected) proxy.Invoke("RegisterNewPlayer", emailIn, usernameIn, pwordIn);
-        else print("No connection to the server could be established!");
+        if (connected) proxy.Invoke("RegisterNewPlayer", emailIn, usernameIn, pwordIn);       
+        else uiController.UpdateServerFeedback("No connection to the server could be established!");
     }
 
     public void LoginPlayer(string usernameIn, string pwordIn)
     {
         if (connected) proxy.Invoke("PlayerLogin", usernameIn, pwordIn);
-        else print("No connection to the server could be established!");
+        else uiController.UpdateServerFeedback("No connection to the server could be established!");
     }
 
     public void UploadMatchResults()

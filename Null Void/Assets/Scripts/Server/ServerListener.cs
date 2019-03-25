@@ -2,13 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ServerListener : MonoBehaviour // This script is solely responsible for obtaining information from the server.
 {
     public static ServerListener instance;
     public bool LoggedIn;
+    
 
-    SignalRController signalRController;    
+    SignalRController signalRController;
+    UiController uiController;
 
     void Awake()
     {
@@ -24,9 +27,9 @@ public class ServerListener : MonoBehaviour // This script is solely responsible
     }
 
     void Start()
-    {       
-        // Find the signalR controller.
-        signalRController = GameObject.Find("SignalRController").GetComponent<SignalRController>();               
+    {              
+        signalRController = GameObject.Find("SignalRController").GetComponent<SignalRController>();
+        uiController = GameObject.Find("Controller_Menu").GetComponent<UiController>();
     }
 
     void Update()
@@ -72,17 +75,17 @@ public class ServerListener : MonoBehaviour // This script is solely responsible
     {
         if (status.ToUpper() == "EMAIL TAKEN")
         {
-            print(input + " already has a NULL VOID account attached to it!"); // This should be replaced by in-game text.
+            uiController.UpdateServerFeedback(input + " already has a NULL VOID account attached to it!");                      
         }
 
         else if (status.ToUpper() == "USERNAME TAKEN")
         {
-            print("The username " + "'"+input+"'" + " has already been taken."); // This should also be replaced.
+            uiController.UpdateServerFeedback("The username " + "'" + input + "'" + " has already been taken.");           
         }
 
         else if (status.ToUpper() == "SUCCESS")
         {
-            print("Welcome to NULL VOID, " + input + "! Please log in so you can play the game!");
+            uiController.UpdateServerFeedback("Welcome to NULL VOID, " + input + "! Please log in so you can play the game!");           
         }
     }
 
@@ -90,18 +93,22 @@ public class ServerListener : MonoBehaviour // This script is solely responsible
     {
         if (status.ToUpper() == "NOT FOUND")
         {
+            uiController.UpdateServerFeedback("No player named " + "'" + username + "'" + " found!");
             print("No player named " + "'" + username + "'" + " found!");
         }
 
         else if (status.ToUpper() == "PASSWORD INVALID")
         {
-            print("Invalid password.");
+            uiController.UpdateServerFeedback("Invalid password.");
+            //print("Invalid password.");
         }
 
         else if (status.ToUpper() == "PASSWORD VALID")
         {
-            print("Welcome back, " + username + "!"); 
-            // Give user info to the SignalR controller. 
+            LoggedIn = true;
+            uiController.UpdateServerFeedback("Welcome back, " + username + "!");
+            uiController.EnableLoginMode(username, wins, losses);
+            // Give user info to the UI controller. 
         }       
     }
 }
