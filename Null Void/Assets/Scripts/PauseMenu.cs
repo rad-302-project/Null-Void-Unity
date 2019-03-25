@@ -12,12 +12,9 @@ public class PauseMenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (Timer.t >= 0)
-        {
-            Pause();
-        }
+        
 
-        if (AsteroidTumbler.health <= 0)
+        if (AsteroidTumbler.Health <= 0)
         {
             Pause();
         }

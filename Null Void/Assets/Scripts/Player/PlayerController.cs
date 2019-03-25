@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-<<<<<<< HEAD
+
         
         if (!PauseMenu.GamePaused)
         {
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
             HandleAnimations();
             Fire();
 
-            if (AsteroidTumbler.health <= 0)
+            if (AsteroidTumbler.Health <= 0)
             {
                 PauseMenu.GamePaused = true;
                 Destroy(this.gameObject);
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         }
        
         
-=======
+
         HandleMovement();
         HandleAnimations();
         Fire();
@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
             uiController.LoadResultsScreen();
             Time.timeScale = 0;
         }     
->>>>>>> cd4c4d5a3c5e929900aa59952ddb9a704a5b8525
+
     }
 
     void HandleMovement()
@@ -117,15 +117,12 @@ public class PlayerController : MonoBehaviour
                 canShoot = false;
                 StartCoroutine(ShootDelay());
             }
-<<<<<<< HEAD
-        
-        
-=======
+
             canShoot = false;
             StartCoroutine(ShootDelay());
         }              
->>>>>>> cd4c4d5a3c5e929900aa59952ddb9a704a5b8525
-    }
+
+    
 
     IEnumerator ShootDelay()
     {
