@@ -8,12 +8,9 @@ using UnityEngine.UI;
 public class UiController : MonoBehaviour
 {
     public static UiController instance;
-<<<<<<< HEAD
-    public Text txtEmail, txtUsernameR, txtPasswordR, txtUsernameL, txtPasswordL;
     SignalRController signalRController;
     public AudioManager audioManager;
     public AsteroidTumbler asteroidTumbler;
-=======
     public Text txtEmail, txtUsernameR, txtPasswordR, txtUsernameL, txtPasswordL; // For input fields.
     public Text RegistrationFeedback, LoginFeedback, UsernameDisplay, WinLossDisplay; // To display in-game.
     public UnityEngine.UI.Button btnReturnFromRegistration, btnReturnFromLogin; // Set in Inspector.
@@ -23,11 +20,9 @@ public class UiController : MonoBehaviour
     string serverMessage, username;
     int userWins, userLosses;
 
-    bool feedbackUpdated, playerInfoUpdated;
-
-    SignalRController signalRController;
+    bool feedbackUpdated, playerInfoUpdated;    
     ServerListener serverListener;
-    AudioManager audioManager;
+
 
     enum UserState
     {
@@ -36,7 +31,6 @@ public class UiController : MonoBehaviour
     }
 
     UserState userState = UserState.LOGGEDOUT;
->>>>>>> master
 
     void Awake()
     {

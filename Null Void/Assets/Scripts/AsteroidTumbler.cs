@@ -8,25 +8,16 @@ public class AsteroidTumbler : MonoBehaviour {
     public float tumbleSpeed = 1f;
     Rigidbody rb;   
     int aPoints = 20;
-<<<<<<< HEAD
+
     public int score;
-=======
-
-
->>>>>>> master
-
     // Use this for initialization
     void Start ()    {
         rb = GetComponent<Rigidbody>();
         rb.AddForce(Vector3.forward);
         rb.angularVelocity = Random.insideUnitSphere * tumbleSpeed;
 	}
-<<<<<<< HEAD
-   
-    private void OnTriggerEnter(Collider collision)
-=======
+
     public void OnTriggerEnter(Collider collision)
->>>>>>> master
     {
         if (collision.tag == "Player")
         {
