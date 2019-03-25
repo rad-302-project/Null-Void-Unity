@@ -15,8 +15,16 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D playerBody;
     public float delayInSeconds;
     //Animator animator;
-    //Bullets
+    //Bullets   
     public GameObject bullet;
+
+    public float startHealth = 100;
+    public float health = 100;
+    public Image healthBar;
+
+
+
+   
 
     void Start()
     {
@@ -25,10 +33,9 @@ public class PlayerController : MonoBehaviour
 
         // the transform of the player
         playerPosition = GetComponent<Transform>();
-       
-        //animator = GetComponent<Animator>();
 
-       
+        //animator = GetComponent<Animator>();
+        
     }
 
     void Update()
@@ -36,8 +43,22 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandleAnimations();
         Fire();
-
+        
     }
+
+    //Trying to ge this to remove from the health bar when it collides with an asteroid
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+
+        healthBar.fillAmount = health / startHealth;
+
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
 
     void HandleMovement()
     {
@@ -85,4 +106,8 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(delayInSeconds);
         canShoot = true;
     }
+
+
+
+
 }
