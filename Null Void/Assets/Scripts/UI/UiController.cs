@@ -9,9 +9,9 @@ public class UiController : MonoBehaviour
 {
     public static UiController instance;
     public Text txtEmail, txtUsernameR, txtPasswordR, txtUsernameL, txtPasswordL;
-
     SignalRController signalRController;
     public AudioManager audioManager;
+    public AsteroidTumbler asteroidTumbler;
 
     void Awake()
     {
@@ -28,6 +28,7 @@ public class UiController : MonoBehaviour
 
     void Start()
     {
+       
         signalRController = GameObject.Find("SignalRController").GetComponent<SignalRController>();
         audioManager = GameObject.Find("Controller_Audio").GetComponent<AudioManager>();
         PlaySound("Menu BGM"); // Play the main menu BGM.       
@@ -77,4 +78,6 @@ public class UiController : MonoBehaviour
     {
         PlaySound("Confirm");
     }
+
+   
 }

@@ -8,7 +8,7 @@ public class AsteroidTumbler : MonoBehaviour {
     public float tumbleSpeed = 1f;
     Rigidbody rb;   
     int aPoints = 20;
-  
+    public int score;
 
     // Use this for initialization
     void Start ()    {
@@ -16,6 +16,7 @@ public class AsteroidTumbler : MonoBehaviour {
         rb.AddForce(Vector3.forward);
         rb.angularVelocity = Random.insideUnitSphere * tumbleSpeed;
 	}
+   
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.tag == "Player")
@@ -27,14 +28,15 @@ public class AsteroidTumbler : MonoBehaviour {
         }
         if (collision.tag == "Bullet")
         {
-            Debug.Log("Bullet Hit");
-            // Add to players score
-            
+
+
             // Remove the asteroid from the game
             Destroy(this.gameObject);
+
             //Remove the Bullet
             Destroy(collision.gameObject);
         }
     }
+    
 
 }

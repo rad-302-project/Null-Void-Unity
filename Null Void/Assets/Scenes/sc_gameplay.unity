@@ -487,9 +487,10 @@ GameObject:
   - component: {fileID: 869893363}
   - component: {fileID: 869893362}
   - component: {fileID: 869893361}
+  - component: {fileID: 869893365}
   m_Layer: 0
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -570,6 +571,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &869893365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 869893360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32eb40c2499bfb9449142563cb928283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 869893363}
+  ScoreTxt: {fileID: 1249746582}
 --- !u!1 &885594765
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,7 +652,7 @@ GameObject:
   - component: {fileID: 1249746583}
   - component: {fileID: 1249746582}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -659,7 +673,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -8}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1249746582
@@ -876,10 +890,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcf3a0dddf48d8a4ba57e138368caecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tumbleSpeed: 1
   Asteroid: {fileID: 1523228609345164, guid: a7154dd695024a144a9eb5e7c8dd2591, type: 2}
   numberOfAsteroids: 0
-  AsteroidLimit: 20
+  AsteroidLimit: 60
 --- !u!4 &1329168523
 Transform:
   m_ObjectHideFlags: 0
@@ -1114,7 +1127,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1983696983}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -940.4, y: 519.2, z: 1016}
+  m_LocalPosition: {x: -940.4, y: 519.20013, z: 1016.00024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1311709456}

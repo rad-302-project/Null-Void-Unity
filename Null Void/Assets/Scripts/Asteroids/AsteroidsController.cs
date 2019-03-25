@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AsteroidsController : AsteroidTumbler
+public class AsteroidsController : MonoBehaviour
 {
     public GameObject Asteroid;
 
