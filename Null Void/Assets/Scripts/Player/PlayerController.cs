@@ -93,17 +93,22 @@ public class PlayerController : MonoBehaviour
 
     void Fire()
     {
-        // if the mouse button is pressed
-        if (Input.GetMouseButtonDown(0))
+        if (PauseMenu.GamePaused != true)
         {
-            if (canShoot)
+
+
+            // if the mouse button is pressed
+            if (Input.GetMouseButtonDown(0))
             {
-                Instantiate(bullet, firePosition.position, firePosition.rotation);
-                float volume = Random.Range(volLowRange, volHighRange);
-                source.PlayOneShot(shotSound, volume);
+                if (canShoot)
+                {
+                    Instantiate(bullet, firePosition.position, firePosition.rotation);
+                    float volume = Random.Range(volLowRange, volHighRange);
+                    source.PlayOneShot(shotSound, volume);
+                }
+                canShoot = false;
+                StartCoroutine(ShootDelay());
             }
-            canShoot = false;
-            StartCoroutine(ShootDelay());
         }
         
         
