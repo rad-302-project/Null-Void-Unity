@@ -2528,6 +2528,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6664f74ec5cf0424386990880d6a4c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 0}
+  asteroidTumbler: {fileID: 0}
   txtEmail: {fileID: 135436503}
   txtUsernameR: {fileID: 1151148671}
   txtPasswordR: {fileID: 1248880921}
@@ -2536,7 +2538,7 @@ MonoBehaviour:
   RegistrationFeedback: {fileID: 333974748}
   LoginFeedback: {fileID: 1188167747}
   UsernameDisplay: {fileID: 142613963}
-  WinLossDisplay: {fileID: 1070507620}
+  HighScoreDisplay: {fileID: 1070507620}
   btnReturnFromRegistration: {fileID: 97084549}
   btnReturnFromLogin: {fileID: 1964144120}
 --- !u!4 &429622402
@@ -4667,7 +4669,7 @@ GameObject:
   - component: {fileID: 1070507621}
   - component: {fileID: 1070507620}
   m_Layer: 5
-  m_Name: lbl_win_loss_comparison
+  m_Name: lbl_high_score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4993,6 +4995,15 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Results BGM
+    clip: {fileID: 8300000, guid: c82012ecdbefcf445a165954868bfa60, type: 3}
+    volume: 0.669
+    volumeVariance: 0.488
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
 --- !u!4 &1102609545

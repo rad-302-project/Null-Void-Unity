@@ -3,19 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Timer : MonoBehaviour {
-
+public class Timer : MonoBehaviour
+{
     public Text timerText;
     private float startTime;
+    UiController uiController;
+    AsteroidTumbler asteroidTumbler;
+    int playerScore;
 
-	// Use this for initialization
-	void Start ()
+    const int TIME_LIMIT = 60; // Change this to 60 seconds later...
+
+    // Use this for initialization
+    void Start()
     {
         startTime = Time.time;
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        uiController = GameObject.Find("Controller_Menu").GetComponent<UiController>();  
+        playerScore = AsteroidTumbler.Score;
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         float t = Time.time - startTime;
 
@@ -23,5 +30,10 @@ public class Timer : MonoBehaviour {
         string seconds = (t % 60).ToString("f2");
 
         timerText.text = minutes + ":" + seconds;
-	}
+
+        if (t >= TIME_LIMIT) // If the time limit has been reached...
+        {
+            uiController.LoadResultsScreen();
+        }
+    }
 }

@@ -8,8 +8,8 @@ public class AsteroidTumbler : MonoBehaviour {
     public float tumbleSpeed = 1f;
     Rigidbody rb;   
     int aPoints = 20;
-    public static int score = 0;
-    public static float health = 100;
+    public static int Score = 0; 
+    public static float Health = 100;
     // Use this for initialization
     void Start ()
     {
@@ -22,7 +22,7 @@ public class AsteroidTumbler : MonoBehaviour {
     {
         if (collision.tag == "Player")
         {
-            health -= 10f;
+            Health -= 10f;
             // Remove Asteroid from game
             Destroy(this.gameObject);
 
@@ -30,7 +30,7 @@ public class AsteroidTumbler : MonoBehaviour {
         }
         if (collision.tag == "Bullet")
         {
-            score += aPoints;
+            Score += aPoints;
             // Remove the asteroid from the game
             Destroy(this.gameObject);
 
@@ -38,6 +38,4 @@ public class AsteroidTumbler : MonoBehaviour {
             Destroy(collision.gameObject);
         }
     }
-    
-
 }

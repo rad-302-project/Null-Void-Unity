@@ -39,36 +39,11 @@ public class ServerListener : MonoBehaviour // This script is solely responsible
         //    EndMatch();
         //}
     }   
-
-    void EndMatch()
+  
+    public void OnReceiveResults()
     {
-        // End the match.
-        //matchInProgress = false;
-
-        // We should load a results screen scene here.       
-
-        // Upload results to the database.
-        UploadMatchResults();
-    }
-
-    // This method sends the match results to the signalR Controller which in turn will send them to the server.
-    public void UploadMatchResults()
-    {
-        // Apply values to signalR variables. I'll likely use a more graceful method later on.
-        //signalRController.p1Username = player1.Username;
-        //signalRController.p2Username = player2.Username;
-        //signalRController.p1StockCount = player1Respawn.RemainingStocks;
-        //signalRController.p2StockCount = player2Respawn.RemainingStocks;
-
-        signalRController.UploadMatchResults();
-    }
-
-    public void OnReceiveResults(ApplicationUser winner, ApplicationUser loser)
-    {
-        print(winner.UserName + " has won the match!");
-
-        print("Winner: " + winner.UserName + " Total Wins: " + winner.Wins + " Total Losses: " + winner.Losses);
-        print("Runner-up: " + loser.UserName + " Total Wins: " + loser.Wins + " Total Losses: " + loser.Losses);
+        // Update the UI controller.
+        uiController.ServerScoreUpdated = true;
     }
 
     public void OnReceiveRegistrationMessage(string status, string input)
@@ -89,7 +64,7 @@ public class ServerListener : MonoBehaviour // This script is solely responsible
         }
     }
 
-    public void OnReceiveLoginMessage(string status, string username, int wins, int losses)
+    public void OnReceiveLoginMessage(string status, string username, int existingHighScoreIn)
     {
         if (status.ToUpper() == "NOT FOUND")
         {
@@ -107,7 +82,7 @@ public class ServerListener : MonoBehaviour // This script is solely responsible
         {
             LoggedIn = true;
             uiController.UpdateServerFeedback("Welcome back, " + username + "!");
-            uiController.EnableLoginMode(username, wins, losses);
+            uiController.EnableLoginMode(username, existingHighScoreIn);
             // Give user info to the UI controller. 
         }       
     }
