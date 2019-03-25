@@ -1,35 +1,35 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    //player inputs
     public int moveSpeed, rotateSpeed;
     public Text overallScoreDisplay;
-    public Transform respawnLocation, playerPosition, firePosition;
-    public int Ammo = 5;
-    bool canShoot = true;
-    int numOfShots;
-    Rigidbody2D playerBody;
-    public float delayInSeconds;
-    //Animator animator;
-    //Bullets   
+    public Transform respawnLocation, playerPosition, firePosition;  
+    Rigidbody2D playerBody;  
+     
+    //projectile and sounds
     public GameObject bullet;
+    public AudioClip hitSound;
     public AudioClip shotSound;
     private AudioSource source;
+    public int Ammo = 5;
+    bool canShoot = true;
+    bool hasHit = true;
+    int numOfShots;
+    public float delayInSeconds;
+
+    //volume for projectile
     private float volLowRange = .5f;
     private float volHighRange = 1.0f;
-    //private float throwSpeed = 2000f;
 
+    //health
     public float startHealth = 100;
     public float health = 100;
     public Image healthBar;
-
-
-
-   
 
     void Start()
     {
@@ -48,7 +48,13 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandleAnimations();
         Fire();
+        Health();
         
+    }
+
+    private void Health()
+    {
+
     }
 
     //Trying to ge this to remove from the health bar when it collides with an asteroid
@@ -60,6 +66,8 @@ public class PlayerController : MonoBehaviour
 
         if (health <= 0)
         {
+            float volume = Random.Range(volLowRange, volHighRange);
+            source.PlayOneShot(hitSound, volume);
             Destroy(this.gameObject);
         }
     }
@@ -104,6 +112,12 @@ public class PlayerController : MonoBehaviour
             }
             canShoot = false;
             StartCoroutine(ShootDelay());
+        }
+
+        if (hasHit)
+        {
+            float volume = Random.Range(volLowRange, volHighRange);
+            source.PlayOneShot(hitSound, volume);
         }
         
         
