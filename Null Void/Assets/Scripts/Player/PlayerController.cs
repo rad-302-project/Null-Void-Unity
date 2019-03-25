@@ -25,6 +25,15 @@ public class PlayerController : MonoBehaviour
     //volume for projectile
     private float volLowRange = .5f;
     private float volHighRange = 1.0f;
+<<<<<<< HEAD
+=======
+    //private float throwSpeed = 2000f;
+
+    public float startHealth = 100;
+    public float health = 100;
+    public Image healthBar;
+
+>>>>>>> parent of 1eb97ce... Merge branch 'master' of https://github.com/rad-302-project/Null-Void-Unity
 
     //health
     public static float startHealth = 100;
@@ -46,13 +55,22 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandleAnimations();
         Fire();
-        if (AsteroidTumbler.health <= 0)
-        {
-            Destroy(this.gameObject);
-            Time.timeScale = 0;
-        }
         
     }
+
+    //Trying to ge this to remove from the health bar when it collides with an asteroid
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+
+        healthBar.fillAmount = health / startHealth;
+
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
 
     void HandleMovement()
     {
@@ -82,17 +100,22 @@ public class PlayerController : MonoBehaviour
 
     void Fire()
     {
-        // if the mouse button is pressed
-        if (Input.GetMouseButtonDown(0))
+        if (PauseMenu.GamePaused != true)
         {
-            if (canShoot)
+
+
+            // if the mouse button is pressed
+            if (Input.GetMouseButtonDown(0))
             {
-                Instantiate(bullet, firePosition.position, firePosition.rotation);
-                float volume = Random.Range(volLowRange, volHighRange);
-                source.PlayOneShot(shotSound, volume);
+                if (canShoot)
+                {
+                    Instantiate(bullet, firePosition.position, firePosition.rotation);
+                    float volume = Random.Range(volLowRange, volHighRange);
+                    source.PlayOneShot(shotSound, volume);
+                }
+                canShoot = false;
+                StartCoroutine(ShootDelay());
             }
-            canShoot = false;
-            StartCoroutine(ShootDelay());
         }
 
         if (hasHit)
