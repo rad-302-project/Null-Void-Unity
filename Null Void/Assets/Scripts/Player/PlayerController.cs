@@ -17,6 +17,11 @@ public class PlayerController : MonoBehaviour
     //Animator animator;
     //Bullets   
     public GameObject bullet;
+    public AudioClip shotSound;
+    private AudioSource source;
+    private float volLowRange = .5f;
+    private float volHighRange = 1.0f;
+    //private float throwSpeed = 2000f;
 
     public float startHealth = 100;
     public float health = 100;
@@ -35,7 +40,7 @@ public class PlayerController : MonoBehaviour
         playerPosition = GetComponent<Transform>();
 
         //animator = GetComponent<Animator>();
-        
+        source = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -94,6 +99,8 @@ public class PlayerController : MonoBehaviour
             if (canShoot)
             {
                 Instantiate(bullet, firePosition.position, firePosition.rotation);
+                float volume = Random.Range(volLowRange, volHighRange);
+                source.PlayOneShot(shotSound, volume);
             }
             canShoot = false;
             StartCoroutine(ShootDelay());

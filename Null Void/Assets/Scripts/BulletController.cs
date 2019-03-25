@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : PlayerController {
+
+public class BulletController : MonoBehaviour {
 
     public Vector2 speed;
     Rigidbody rb;
