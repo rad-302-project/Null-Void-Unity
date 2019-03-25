@@ -71,8 +71,7 @@ public class SignalRController : MonoBehaviour
 
     public void RegisterPlayer(string emailIn, string usernameIn, string pwordIn)
     {
-        if (connected) proxy.Invoke("RegisterNewPlayer", emailIn, usernameIn, pwordIn);
-        //else print("No connection to the server could be established!");
+        if (connected) proxy.Invoke("RegisterNewPlayer", emailIn, usernameIn, pwordIn);       
         else uiController.UpdateServerFeedback("No connection to the server could be established!");
     }
 

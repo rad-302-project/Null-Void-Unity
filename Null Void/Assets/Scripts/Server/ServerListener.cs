@@ -105,9 +105,10 @@ public class ServerListener : MonoBehaviour // This script is solely responsible
 
         else if (status.ToUpper() == "PASSWORD VALID")
         {
+            LoggedIn = true;
             uiController.UpdateServerFeedback("Welcome back, " + username + "!");
-            //print("Welcome back, " + username + "!"); 
-            // Give user info to the SignalR controller. 
+            uiController.EnableLoginMode(username, wins, losses);
+            // Give user info to the UI controller. 
         }       
     }
 }

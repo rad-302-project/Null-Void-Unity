@@ -10,13 +10,26 @@ public class UiController : MonoBehaviour
     public static UiController instance;
     public Text txtEmail, txtUsernameR, txtPasswordR, txtUsernameL, txtPasswordL; // For input fields.
     public Text RegistrationFeedback, LoginFeedback, UsernameDisplay, WinLossDisplay; // To display in-game.
-    public UnityEngine.UI.Button ReturnFromRegistration, ReturnFromLogin;
+    public UnityEngine.UI.Button btnReturnFromRegistration, btnReturnFromLogin; // Set in Inspector.
 
-    string serverMessage = "";
-    bool feedbackUpdated;
+    UnityEngine.UI.Button btnPlay, btnLogin, btnLogout, btnRegister; // Set automatically, since they are active in the scene from the beginning.
+
+    string serverMessage, username;
+    int userWins, userLosses;
+
+    bool feedbackUpdated, playerInfoUpdated;
 
     SignalRController signalRController;
+    ServerListener serverListener;
     AudioManager audioManager;
+
+    enum UserState
+    {
+        LOGGEDIN,
+        LOGGEDOUT
+    }
+
+    UserState userState = UserState.LOGGEDOUT;
 
     void Awake()
     {
@@ -34,7 +47,17 @@ public class UiController : MonoBehaviour
     void Start()
     {
         signalRController = GameObject.Find("SignalRController").GetComponent<SignalRController>();
+        serverListener = GameObject.Find("ServerListener").GetComponent<ServerListener>();
         audioManager = GameObject.Find("Controller_Audio").GetComponent<AudioManager>();
+
+        btnPlay = GameObject.Find("Canvas/pnl_MainMenu/btn_Play").GetComponent<UnityEngine.UI.Button>();
+        btnLogin = GameObject.Find("Canvas/pnl_MainMenu/btn_Login").GetComponent<UnityEngine.UI.Button>();
+        btnLogout = GameObject.Find("Canvas/pnl_MainMenu/btn_Logout").GetComponent<UnityEngine.UI.Button>();
+        btnRegister = GameObject.Find("Canvas/pnl_MainMenu/btn_Register").GetComponent<UnityEngine.UI.Button>();
+
+        //btnPlay.gameObject.SetActive(false);
+        //btnLogout.gameObject.SetActive(false);
+
         PlaySound("Menu BGM"); // Play the main menu BGM.      
 
         RegistrationFeedback.text = "Registering...";
@@ -45,12 +68,51 @@ public class UiController : MonoBehaviour
         if(feedbackUpdated)
         {
             RegistrationFeedback.text = serverMessage;
-            ReturnFromRegistration.gameObject.SetActive(true); // I'll keep an eye on this.
+            btnReturnFromRegistration.gameObject.SetActive(true); // I'll keep an eye on this.
 
             LoginFeedback.text = serverMessage;
-            ReturnFromLogin.gameObject.SetActive(true);
+            btnReturnFromLogin.gameObject.SetActive(true);
 
             feedbackUpdated = false;
+        }
+
+        switch (userState)
+        {
+            case UserState.LOGGEDOUT:
+                // Disable what shouldn't be visible in this state.
+                if (btnPlay.isActiveAndEnabled) btnPlay.gameObject.SetActive(false);
+                if (btnLogout.isActiveAndEnabled) btnLogout.gameObject.SetActive(false);
+                if (UsernameDisplay.isActiveAndEnabled)
+                {
+                    UsernameDisplay.text = "";
+                    UsernameDisplay.gameObject.SetActive(false);
+                }
+                if (WinLossDisplay.isActiveAndEnabled)
+                {
+                    WinLossDisplay.text = "";
+                    WinLossDisplay.gameObject.SetActive(false);
+                }
+
+                // Enable what should be visible in this state.
+                if (!btnLogin.gameObject.activeSelf) btnLogin.gameObject.SetActive(true);
+                if (!btnRegister.gameObject.activeSelf) btnRegister.gameObject.SetActive(true);
+                break;
+
+            case UserState.LOGGEDIN:
+                // Disable what shouldn't be visible in this state.
+                if (btnLogin.isActiveAndEnabled) btnLogin.gameObject.SetActive(false);
+                if (btnRegister.isActiveAndEnabled) btnRegister.gameObject.SetActive(false);
+
+                // Enable what should be visible in this state.
+                if (!btnPlay.isActiveAndEnabled) btnPlay.gameObject.SetActive(true);
+                if (!btnLogout.isActiveAndEnabled) btnLogout.gameObject.SetActive(true);
+                if (!UsernameDisplay.isActiveAndEnabled) UsernameDisplay.gameObject.SetActive(true);
+                if (!WinLossDisplay.isActiveAndEnabled) WinLossDisplay.gameObject.SetActive(true);
+
+                // Display user info.
+                if (UsernameDisplay.text == "") UsernameDisplay.text = username;
+                if (WinLossDisplay.text == "") WinLossDisplay.text = string.Format("Wins: " +userWins + " Losses: " + userLosses);
+                break;
         }
     }
 
@@ -88,6 +150,19 @@ public class UiController : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         signalRController.LoginPlayer(txtUsernameL.text, txtPasswordL.text);
     }
+
+    public void EnableLoginMode(string usernameIn, int winsIn, int lossesIn)
+    {
+        username = usernameIn;
+        userWins = winsIn;
+        userLosses = lossesIn;
+        userState = UserState.LOGGEDIN;
+    }
+    
+    public void DisableLoginMode()
+    {
+        userState = UserState.LOGGEDOUT;
+    }
     #endregion
 
     public void UpdateServerFeedback(string serverFeedback)
@@ -113,8 +188,8 @@ public class UiController : MonoBehaviour
         if (RegistrationFeedback.text != "Registering...") RegistrationFeedback.text = "Registering...";
         if (LoginFeedback.text != "Logging in...") LoginFeedback.text = "Logging in...";
 
-        ReturnFromRegistration.gameObject.SetActive(false);
-        ReturnFromLogin.gameObject.SetActive(false);
+        btnReturnFromRegistration.gameObject.SetActive(false);
+        btnReturnFromLogin.gameObject.SetActive(false);
     }
    
     public void PlaySound(string soundName) // I should probably move these next two methods to the AudioManager class.
