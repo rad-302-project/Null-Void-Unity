@@ -12,13 +12,17 @@ public class UiController : MonoBehaviour
     public AudioManager audioManager;
     public AsteroidTumbler asteroidTumbler;
     public Text txtEmail, txtUsernameR, txtPasswordR, txtUsernameL, txtPasswordL; // For input fields.
-    public Text RegistrationFeedback, LoginFeedback, UsernameDisplay, WinLossDisplay; // To display in-game.
+    public Text RegistrationFeedback, LoginFeedback, UsernameDisplay, HighScoreDisplay; // To display in-game.
     public UnityEngine.UI.Button btnReturnFromRegistration, btnReturnFromLogin; // Set in Inspector.
+    public int NewHighScore;
+    public bool ServerScoreUpdated = false;
+    public string Username;
 
     UnityEngine.UI.Button btnPlay, btnLogin, btnLogout, btnRegister; // Set automatically, since they are active in the scene from the beginning.
 
-    string serverMessage, username;
-    int userWins, userLosses;
+    string serverMessage;
+    int existingScore;
+
 
     bool feedbackUpdated, playerInfoUpdated;    
     ServerListener serverListener;
@@ -89,10 +93,10 @@ public class UiController : MonoBehaviour
                     UsernameDisplay.text = "";
                     UsernameDisplay.gameObject.SetActive(false);
                 }
-                if (WinLossDisplay.isActiveAndEnabled)
+                if (HighScoreDisplay.isActiveAndEnabled)
                 {
-                    WinLossDisplay.text = "";
-                    WinLossDisplay.gameObject.SetActive(false);
+                    HighScoreDisplay.text = "";
+                    HighScoreDisplay.gameObject.SetActive(false);
                 }
 
                 // Enable what should be visible in this state.
@@ -109,11 +113,11 @@ public class UiController : MonoBehaviour
                 if (btnPlay != null && !btnPlay.isActiveAndEnabled) btnPlay.gameObject.SetActive(true);
                 if (btnLogout != null && !btnLogout.isActiveAndEnabled) btnLogout.gameObject.SetActive(true);
                 if (UsernameDisplay != null && !UsernameDisplay.isActiveAndEnabled) UsernameDisplay.gameObject.SetActive(true);
-                if (WinLossDisplay != null && !WinLossDisplay.isActiveAndEnabled) WinLossDisplay.gameObject.SetActive(true);
+                if (HighScoreDisplay != null && !HighScoreDisplay.isActiveAndEnabled) HighScoreDisplay.gameObject.SetActive(true);
 
                 // Display user info.
-                if (UsernameDisplay != null && UsernameDisplay.text == "") UsernameDisplay.text = username;
-                if (WinLossDisplay != null && WinLossDisplay.text == "") WinLossDisplay.text = string.Format("Wins: " +userWins + " Losses: " + userLosses);
+                if (UsernameDisplay != null && UsernameDisplay.text == "") UsernameDisplay.text = Username;
+                if (HighScoreDisplay != null && HighScoreDisplay.text == "") HighScoreDisplay.text = string.Format("High Score: " + existingScore);
                 break;
         }
     }
@@ -153,11 +157,10 @@ public class UiController : MonoBehaviour
         signalRController.LoginPlayer(txtUsernameL.text, txtPasswordL.text);
     }
 
-    public void EnableLoginMode(string usernameIn, int winsIn, int lossesIn)
+    public void EnableLoginMode(string usernameIn, int highScoreIn)
     {
-        username = usernameIn;
-        userWins = winsIn;
-        userLosses = lossesIn;
+        Username = usernameIn;
+        existingScore = highScoreIn;
         userState = UserState.LOGGEDIN;
     }
     
@@ -167,10 +170,34 @@ public class UiController : MonoBehaviour
     }
     #endregion
 
+    #region Feedback methods.
     public void UpdateServerFeedback(string serverFeedback)
     {
         serverMessage = serverFeedback;
         feedbackUpdated = true;
+    }
+
+    public void RevertFeedback()
+    {
+        if (RegistrationFeedback.text != "Registering...") RegistrationFeedback.text = "Registering...";
+        if (LoginFeedback.text != "Logging in...") LoginFeedback.text = "Logging in...";
+
+        btnReturnFromRegistration.gameObject.SetActive(false);
+        btnReturnFromLogin.gameObject.SetActive(false);
+    }
+    #endregion
+
+    public void LoadResultsScreen()
+    {
+        NewHighScore = AsteroidTumbler.Score;
+
+        // Now send this score to the signal R controller.
+        signalRController.UploadMatchResults(Username, NewHighScore);
+
+        StopSound("Gameplay BGM");
+        PlaySound("Results BGM");       
+
+        SceneManager.LoadScene("sc_Results"); // Load the results screen.               
     }
 
     public void StartGame()
@@ -185,15 +212,6 @@ public class UiController : MonoBehaviour
         Application.Quit(); // Close the game.       
     }
 
-    public void RevertFeedback()
-    {
-        if (RegistrationFeedback.text != "Registering...") RegistrationFeedback.text = "Registering...";
-        if (LoginFeedback.text != "Logging in...") LoginFeedback.text = "Logging in...";
-
-        btnReturnFromRegistration.gameObject.SetActive(false);
-        btnReturnFromLogin.gameObject.SetActive(false);
-    }
-   
     public void PlaySound(string soundName) // I should probably move these next two methods to the AudioManager class.
     {
         if(audioManager != null) audioManager.Play(soundName);
@@ -202,12 +220,5 @@ public class UiController : MonoBehaviour
     public void StopSound(string soundName)
     {
         if(audioManager != null) audioManager.Stop(soundName);
-    }
-
-    public void OpenQuitDialog() // Gotta make this into a generic method that is called when you click any button.
-    {
-        PlaySound("Confirm");
-    }
-
-   
+    }    
 }

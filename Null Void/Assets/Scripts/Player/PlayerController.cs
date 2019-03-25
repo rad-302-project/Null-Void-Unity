@@ -24,12 +24,12 @@ public class PlayerController : MonoBehaviour
     public static float startHealth = 100;
     public Image healthBar;
 
-
-
-   
+    UiController uiController;
 
     void Start()
     {
+        uiController = GameObject.Find("Controller_Menu").GetComponent<UiController>();
+
         // the rigidboody component of the player
         playerBody = GetComponent<Rigidbody2D>();
 
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+<<<<<<< HEAD
         
         if (!PauseMenu.GamePaused)
         {
@@ -60,6 +61,17 @@ public class PlayerController : MonoBehaviour
         }
        
         
+=======
+        HandleMovement();
+        HandleAnimations();
+        Fire();
+        if (AsteroidTumbler.Health <= 0)
+        {
+            //Destroy(this.gameObject);
+            uiController.LoadResultsScreen();
+            Time.timeScale = 0;
+        }     
+>>>>>>> cd4c4d5a3c5e929900aa59952ddb9a704a5b8525
     }
 
     void HandleMovement()
@@ -105,16 +117,19 @@ public class PlayerController : MonoBehaviour
                 canShoot = false;
                 StartCoroutine(ShootDelay());
             }
+<<<<<<< HEAD
         
         
+=======
+            canShoot = false;
+            StartCoroutine(ShootDelay());
+        }              
+>>>>>>> cd4c4d5a3c5e929900aa59952ddb9a704a5b8525
     }
+
     IEnumerator ShootDelay()
     {
         yield return new WaitForSeconds(delayInSeconds);
         canShoot = true;
     }
-
-
-
-
 }

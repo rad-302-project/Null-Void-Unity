@@ -54,9 +54,9 @@ public class SignalRController : MonoBehaviour
             proxy = connection.CreateHubProxy(hubName);
 
             // Add actions to the proxy.
-            proxy.On("ReceiveResults", new Action<ApplicationUser, ApplicationUser>(serverListener.OnReceiveResults));
+            proxy.On("ReceiveResults", new Action(serverListener.OnReceiveResults));
             proxy.On("ReceiveRegistrationMessage", new Action<string, string>(serverListener.OnReceiveRegistrationMessage));
-            proxy.On("ReceiveLoginMessage", new Action<string, string, int, int>(serverListener.OnReceiveLoginMessage));
+            proxy.On("ReceiveLoginMessage", new Action<string, string, int>(serverListener.OnReceiveLoginMessage));
             //proxy.On("PlayerJoined", new Action<string>(serverTalk.OnPlayerJoined));
             //proxy.On("PlayerLeft", new Action<string>(serverTalk.OnPlayerLeft));
 
@@ -81,27 +81,11 @@ public class SignalRController : MonoBehaviour
         else uiController.UpdateServerFeedback("No connection to the server could be established!");
     }
 
-    public void UploadMatchResults()
+    public void UploadMatchResults(string usernameIn, int resultsIn)
     {
         if (connected)
         {
-            //proxy.Invoke("UploadMatchResults", p1Username, p2Username, p1StockCount, p2StockCount);
+            proxy.Invoke("UploadHighScore", usernameIn, resultsIn);
         }
-    }
-
-    //public void LeaveChat()
-    //{
-    //    if (connected)
-    //    {
-    //        proxy.Invoke("Leave", username);
-    //    }
-    //}
-
-    //public void SendMessageToChat()
-    //{
-    //    if (connected)
-    //    {
-    //        proxy.Invoke("SendMessageToOthers", username, message);
-    //    }
-    //}
+    } 
 }
