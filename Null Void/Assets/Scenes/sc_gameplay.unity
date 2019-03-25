@@ -579,11 +579,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 869893360}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32eb40c2499bfb9449142563cb928283, type: 3}
+  m_Script: {fileID: 11500000, guid: accca2dc8fe00ea41899420ffc18be2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 869893363}
-  ScoreTxt: {fileID: 1249746582}
+  scoreTxt: {fileID: 1249746582}
+  healthBar: {fileID: 1897282443}
 --- !u!1 &885594765
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,8 +898,6 @@ MonoBehaviour:
   delayInSeconds: 0
   bullet: {fileID: 1969722002897308, guid: ca0cba18100156640b23f17d6a74b94d, type: 2}
   shotSound: {fileID: 8300000, guid: 07deb900a328b204e97e698143c4805c, type: 3}
-  startHealth: 100
-  health: 100
   healthBar: {fileID: 1897282443}
 --- !u!4 &1878751532
 Transform:

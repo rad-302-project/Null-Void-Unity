@@ -21,10 +21,7 @@ public class PlayerController : MonoBehaviour
     private AudioSource source;
     private float volLowRange = .5f;
     private float volHighRange = 1.0f;
-    //private float throwSpeed = 2000f;
-
-    public float startHealth = 100;
-    public float health = 100;
+    public static float startHealth = 100;
     public Image healthBar;
 
 
@@ -48,22 +45,14 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandleAnimations();
         Fire();
+        if (AsteroidTumbler.health <= 0)
+        {
+            
+            Destroy(this.gameObject);
+            Time.timeScale = 0;
+        }
         
     }
-
-    //Trying to ge this to remove from the health bar when it collides with an asteroid
-    public void TakeDamage(float amount)
-    {
-        health -= amount;
-
-        healthBar.fillAmount = health / startHealth;
-
-        if (health <= 0)
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
 
     void HandleMovement()
     {
