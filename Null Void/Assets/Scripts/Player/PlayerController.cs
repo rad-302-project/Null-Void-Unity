@@ -39,18 +39,26 @@ public class PlayerController : MonoBehaviour
         //animator = GetComponent<Animator>();
         source = GetComponent<AudioSource>();
     }
+    
 
     void Update()
     {
-        HandleMovement();
-        HandleAnimations();
-        Fire();
-        if (AsteroidTumbler.health <= 0)
+        
+        if (!PauseMenu.GamePaused)
         {
-            
-            Destroy(this.gameObject);
-            Time.timeScale = 0;
+            HandleMovement();
+            HandleAnimations();
+            Fire();
+
+            if (AsteroidTumbler.health <= 0)
+            {
+                PauseMenu.GamePaused = true;
+                Destroy(this.gameObject);
+                Time.timeScale = 0;
+
+            }
         }
+       
         
     }
 
@@ -82,18 +90,21 @@ public class PlayerController : MonoBehaviour
 
     void Fire()
     {
-        // if the mouse button is pressed
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (canShoot)
+       
+
+
+            // if the mouse button is pressed
+            if (Input.GetMouseButtonDown(0))
             {
-                Instantiate(bullet, firePosition.position, firePosition.rotation);
-                float volume = Random.Range(volLowRange, volHighRange);
-                source.PlayOneShot(shotSound, volume);
+                if (canShoot)
+                {
+                    Instantiate(bullet, firePosition.position, firePosition.rotation);
+                    float volume = Random.Range(volLowRange, volHighRange);
+                    source.PlayOneShot(shotSound, volume);
+                }
+                canShoot = false;
+                StartCoroutine(ShootDelay());
             }
-            canShoot = false;
-            StartCoroutine(ShootDelay());
-        }
         
         
     }

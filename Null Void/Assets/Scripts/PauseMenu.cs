@@ -7,11 +7,24 @@ public class PauseMenu : MonoBehaviour {
 
     public static bool GamePaused = false;//can call this 
     public GameObject pauseMeuUI;
+    
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        if (Timer.t >= 0)
+        {
+            Pause();
+        }
+
+        if (AsteroidTumbler.health <= 0)
+        {
+            Pause();
+        }
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+
             if (GamePaused)
             {
                 Resume();

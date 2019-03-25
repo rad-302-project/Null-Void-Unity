@@ -7,21 +7,24 @@ public class Timer : MonoBehaviour {
 
     public Text timerText;
     private float startTime;
+    public static float t;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
-        startTime = Time.time;
+        startTime = 30f;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        float t = Time.time - startTime;
-
+        t = Time.time - startTime;
         string minutes = ((int)t / 60).ToString();
         string seconds = (t % 60).ToString("f2");
 
         timerText.text = minutes + ":" + seconds;
+
+      
+
 	}
 }
