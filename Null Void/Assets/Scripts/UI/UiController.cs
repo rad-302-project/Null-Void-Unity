@@ -100,18 +100,18 @@ public class UiController : MonoBehaviour
 
             case UserState.LOGGEDIN:
                 // Disable what shouldn't be visible in this state.
-                if (btnLogin.isActiveAndEnabled) btnLogin.gameObject.SetActive(false);
-                if (btnRegister.isActiveAndEnabled) btnRegister.gameObject.SetActive(false);
+                if (btnLogin != null && btnLogin.isActiveAndEnabled) btnLogin.gameObject.SetActive(false);
+                if (btnRegister != null && btnRegister.isActiveAndEnabled) btnRegister.gameObject.SetActive(false);
 
                 // Enable what should be visible in this state.
-                if (!btnPlay.isActiveAndEnabled) btnPlay.gameObject.SetActive(true);
-                if (!btnLogout.isActiveAndEnabled) btnLogout.gameObject.SetActive(true);
-                if (!UsernameDisplay.isActiveAndEnabled) UsernameDisplay.gameObject.SetActive(true);
-                if (!WinLossDisplay.isActiveAndEnabled) WinLossDisplay.gameObject.SetActive(true);
+                if (btnPlay != null && !btnPlay.isActiveAndEnabled) btnPlay.gameObject.SetActive(true);
+                if (btnLogout != null && !btnLogout.isActiveAndEnabled) btnLogout.gameObject.SetActive(true);
+                if (UsernameDisplay != null && !UsernameDisplay.isActiveAndEnabled) UsernameDisplay.gameObject.SetActive(true);
+                if (WinLossDisplay != null && !WinLossDisplay.isActiveAndEnabled) WinLossDisplay.gameObject.SetActive(true);
 
                 // Display user info.
-                if (UsernameDisplay.text == "") UsernameDisplay.text = username;
-                if (WinLossDisplay.text == "") WinLossDisplay.text = string.Format("Wins: " +userWins + " Losses: " + userLosses);
+                if (UsernameDisplay != null && UsernameDisplay.text == "") UsernameDisplay.text = username;
+                if (WinLossDisplay != null && WinLossDisplay.text == "") WinLossDisplay.text = string.Format("Wins: " +userWins + " Losses: " + userLosses);
                 break;
         }
     }
