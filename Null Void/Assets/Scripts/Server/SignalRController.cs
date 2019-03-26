@@ -14,7 +14,8 @@ public class SignalRController : MonoBehaviour
     UiController uiController;
 
     // Connection properties.    
-    static string endpoint = "http://localhost:55476/";
+    //static string endpoint = "http://localhost:55476/";
+    static string endpoint = "http://radicalwebapp.azurewebsites.net/"; // Now hosted on Azure.
     static string hubName = "RADicalHub";
     HubConnection connection;
     IHubProxy proxy;
